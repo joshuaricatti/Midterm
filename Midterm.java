@@ -94,26 +94,6 @@ System.out.println("Enter new Player ID: ”);
 
 
 
-
-
-		
-		int[] randomNumber = new int[4];
-				
-				int firstrandInt = (int)(Math.random() * 9);
-		
-		while (firstrandInt == 0) {
-			firstrandInt = (int)(Math.random() * 9);
-		}
-		int secondrandInt = (int)(Math.random() * 9);
-		int thirdrandInt = (int)(Math.random() * 9);
-		int fourthrandInt = (int)(Math.random() * 9);
-		
-		randomNumber[0] = firstrandInt;
-		randomNumber[1] = secondrandInt;
-		randomNumber[2] = thirdrandInt;
-		randomNumber[3] = fourthrandInt;
-		for(int digit:randomNumber) {
-			System.out.print (digit);
 		}
 		
 	}
