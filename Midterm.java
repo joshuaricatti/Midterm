@@ -1,3 +1,4 @@
+package MidTerm;
 import java.util.Scanner;
 
 
@@ -7,8 +8,6 @@ public class MidTerm {
 		//my_arr {1,'s', "Derek"} Not possible bc different data types
 	Scanner user_input = new Scanner(System.in);	
 		
-
-
 
 
 	int[] randomNumber = new int[4];
@@ -42,18 +41,22 @@ System.out.println("Choose an option:");
 		int choice = user_input.nextInt();
 
 
-String player = “Player”;
+String player = "Player";
 switch (choice) {
 		case 1:	
-			System.out.println(“Welcome ”+player+ “!!”);
-			System.out.println(“Choose number of attempts you need:”);
-			System.out.println(“1. Easy (20 Attempts) \n2. Medium (15 attempts) \n3. Hard (10 Attempts)”);
-			System.out.println(“Choose an option: “);
+			System.out.println("Welcome "+player+ "!!");
+			System.out.println("Choose number of attempts you need:");
+			System.out.println("1. Easy (20 Attempts) \n2. Medium (15 attempts) \n3. Hard (10 Attempts)");
+			System.out.println("Choose an option: ");
 			int choice2 = user_input.nextInt();
-				
-switch (choice2){
+	
+		
+
+	
+		
+				/**switch (choice2){
 						case 1:
-double attempts = 20 ; 
+								double attempts = 20;
 
 				do {
 	System.out.println(“Guess the unknown randomly generated 4-digit number.”);
@@ -70,16 +73,16 @@ double attempts = 20 ;
 
 
 }
-		
+		**/
 		case 2:	
-			String player;
-System.out.println("Enter new Player ID: ”);
-			player = userinput_next.Line();
+		
+				System.out.println("Enter new Player ID: ");
+						player = user_input.nextLine();
 
 			
 		
-		case 3:	
-			System.out.println("Your player ID is “ + player +));
+		case 3:
+			System.out.println("Your player ID is: "+ player);
 		
 		case 4:	
 			
@@ -90,16 +93,10 @@ System.out.println("Enter new Player ID: ”);
 		default:
 			System.out.println("Invalid choice. Try again.");
 			return;
-
-
-
-
-		}
-		
 	}
 }
-
-
+}
+}
 
 
 
