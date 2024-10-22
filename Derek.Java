@@ -46,11 +46,14 @@ switch (choice) {
 				
 				switch (choice2){
 						case 1:
-					double attempts = 20;
-					double catches = 0;
-					double matches = 0;
+									double attempts = 20;
+									double catches = 0;
+									double matches = 0;
 							do {
-										
+								System.out.println("Guess the unknown randomly generated 4-digit number. \nEnter the random 4-digit number (Attempts remaining: "+attempts+"):");
+
+								attempts = attempts-1
+
 										int[] guess = new int[4];
 										System.out.print("Whats your guess");
 										String guessString = user_input.next();
@@ -65,8 +68,10 @@ switch (choice) {
 					
 						 
 						     
-						            int firstnum = val % 10;
-						            int secondnum = val % 100;
+						      		     	int firstnum = val % 10;
+						      			int secondnum = val % 100;
+									int thirdnum = val % 1000;
+									int fourthnum = val % 10000;
 						            	if(firstnum==firstrandInt) {
 						            		matches = matches + 1;
 						            	}
@@ -79,18 +84,67 @@ switch (choice) {
 						            	else if(firstnum==fourthrandInt) {
 					            			catches = catches + 1;
 					            		}
-						            	else {
-					            			
-					            	
-						            		
+						            	else {}
+
+								if(secondnum==secondrandInt) {
+						            		matches = matches + 1;
 						            	}
-						 
-						           
+						            	else if(secondnum==thirdrandInt) {
+						            		catches = catches + 1;
+						            	}
+						            	else if(secondnum==fourthrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else if(secondnum==firstrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else {}
+
+						           	if(thirdnum==thirdrandInt) {
+						            		matches = matches + 1;
+						            	}
+						            	else if(thirdnum==secondrandInt) {
+						            			catches = catches + 1;
+						            	}
+						            	else if(thirdnum==firstrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else if(thirdnum==fourthrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else {}
+								
+
+								if(fourthnum==fourthrandInt) {
+						            		matches = matches + 1;
+						            	}
+						            	else if(fourthnum==secondrandInt) {
+						            			catches = catches + 1;
+						            	}
+						            	else if(fourthnum==thirdrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else if(fourthnum==fourthrandInt) {
+					            			catches = catches + 1;
+					            		}
+						            	else {}
+}
+								if(matches == 4){
+								System.out.println("Congratulations! You've guessed the correct number.");
+								break;
 						   
 								}
+								else{
+								System.out.println("Matches: %d, Catches: %d" ,matches,catches);
+								}
 									}while(attempts>=0);
+								
+								System.out.println("Game OVER. The correct number was: " + randomnumber);
+						case 2:
 
+						case 3:
 
+						default:
 
 }
 			break;
