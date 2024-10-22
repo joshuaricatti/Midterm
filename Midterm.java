@@ -126,7 +126,6 @@ public class test2 {
     private static void changePlayerId() {
         System.out.print("Enter new Player ID: ");
         playerId = scanner.nextLine();
-        System.out.println("Player ID changed to: " + playerId);
     }
 
     // Display the current Player ID
