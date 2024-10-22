@@ -34,7 +34,7 @@ public class test2 {
                 displayPlayerId();
                 break;
             case 4:
-                System.out.println("Quitting the game. Goodbye!");
+                System.out.println("Quitting...");
                 System.exit(0);
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -43,7 +43,7 @@ public class test2 {
 
     // Play the guessing game
     private static void playGame() {
-        System.out.println("Welcome " + playerId + "!");
+        System.out.println("Welcome " + playerId + "!!");
         System.out.println("Choose difficulty level:");
         System.out.println("1. Easy (20 attempts)");
         System.out.println("2. Medium (15 attempts)");
@@ -57,14 +57,8 @@ public class test2 {
         boolean guessedCorrectly = false;
 
         for (int i = attempts; i > 0; i = i-1) {
-            System.out.print("Enter a 4-digit number. Attempts remaining " + (i) + " ");
+            System.out.print("Guess the unknown randomly generated 4-digit number. /n Enter a 4-digit number. (Attempts remaining " + (i) + ")");
             String userGuess = scanner.nextLine();
-
-            if (!isValidInput(userGuess)) {
-                System.out.println("Invalid input. Please enter a 4-digit number.");
-                i++; // Don't count this as an attempt
-                continue;
-            }
 
             int[] feedback = getFeedback(userGuess, numberToGuess);
             int matches = feedback[0];
@@ -140,11 +134,6 @@ public class test2 {
         System.out.println("Current Player ID: " + playerId);
     }
 
-    // Validate user input for 4-digit integers
-    private static boolean isValidInput(String input) {
-        return input.matches("\\d{4}");
-    }
-
     // Get the number of attempts based on the selected difficulty level
     private static int getAttemptsBasedOnDifficulty() {
         int difficulty = getValidIntInput();
@@ -171,5 +160,3 @@ public class test2 {
         }
     }
 }
-
-
