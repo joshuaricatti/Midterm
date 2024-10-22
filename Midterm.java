@@ -83,11 +83,13 @@ switch (choice) {
 		
 		case 3:
 			System.out.println("Your player ID is: "+ player);
+
+		break;
 		
 		case 4:	
 			
 			System.out.println("Quitting.... ");
-					
+				System.exit(4);	
 			break;
 		  	
 		default:
