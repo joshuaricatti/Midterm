@@ -1,5 +1,5 @@
 package Final;
- 
+
 import java.util.Scanner;
 
 public class Files2 {
@@ -57,42 +57,58 @@ public class Files2 {
                     if (randomNumber < 999) {
                         randomNumber = randomNumber + 1000;
                     }
-
+                    int Player1_attempts = attempts;
+                    int Player2_attempts = attempts;
                     // alternating turns between Player 1 and Player 2
                     int currentPlayer = 1; // start with player 1
                     while (attempts > 0) {
-                        int catches = 0;
-                        int matches = 0;
-                        String currentPlayerID = (currentPlayer == 1) ? playerID1 : playerID2;
-                        System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + attempts + "): ");
-                        int guess = user_input.nextInt();
-
-                        if (guess < 1000 || guess > 9999) {
-                            System.out.println("Invalid Input. Enter only a 4 digit number.");
-                            continue;
+                    	int catches = 0;
+                    	int matches = 0;
+                    	String currentPlayerID = (currentPlayer == 1) ? playerID1 : playerID2;
                         
+                        try {
+                        	System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + attempts + "): ");
+                        	
+                        	int guess = user_input.nextInt();
+                        	
+                          
+	                        if (guess < 1000 || guess > 9999) {
+	                            System.out.println("Invalid Input. Enter only a 4 digit number.");
+	                            continue;
+	                                                     
+	                        
+	                        } 
+	                        else {
+	
+		                        String guessString = String.valueOf(guess);
+		                        String randomString = String.valueOf(randomNumber);
+	
+		                        for (int i = 0; i < 4; i++) {
+		                            if (guessString.charAt(i) == randomString.charAt(i)) {
+		                                matches++;
+		                            } else if (randomString.contains(Character.toString(guessString.charAt(i)))) {
+		                                catches++;
+		                            }
+		                        }
+	
+		                        if (matches == 4) {
+		                            System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
+		                            return;
+		                        } else {
+		                            System.out.printf("Matches: %d and Catches: %d.\n", matches, catches);
+		                        }
+	
+		                        attempts--;
+		                        currentPlayer = (currentPlayer == 1) ? 2 : 1; // switch players
+	                        }
+                      
+                        }  
+                        catch (Exception e) {
+                        	System.out.println("Invalid Input. Please enter a number.");
+                        	System.out.println("Invalid Input. Enter exactly 4 digits.");
+                        	String Ghost =  user_input.nextLine();                    	
                         }
-
-                        String guessString = String.valueOf(guess);
-                        String randomString = String.valueOf(randomNumber);
-
-                        for (int i = 0; i < 4; i++) {
-                            if (guessString.charAt(i) == randomString.charAt(i)) {
-                                matches++;
-                            } else if (randomString.contains(Character.toString(guessString.charAt(i)))) {
-                                catches++;
-                            }
-                        }
-
-                        if (matches == 4) {
-                            System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
-                            return;
-                        } else {
-                            System.out.printf("Matches: %d and Catches: %d.\n", matches, catches);
-                        }
-
-                        attempts--;
-                        currentPlayer = (currentPlayer == 1) ? 2 : 1; // switch players
+                        
                     }
                     System.out.println("Both players have lost. The random number was " + randomNumber);
                     break;
@@ -116,3 +132,4 @@ public class Files2 {
         }
     }
 }
+
