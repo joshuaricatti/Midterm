@@ -1,0 +1,118 @@
+package Final;
+ 
+import java.util.Scanner;
+
+public class Files2 {
+
+    public static void main(String Args[]) {
+        String playerID1 = "Player 1";
+        String playerID2 = "Player 2";
+
+        while (true) {
+            System.out.println("Menu");
+            System.out.println("1. Single Player");
+            System.out.println("2. Dual Player");
+            System.out.println("3. Display Game History");
+            System.out.println("4. Clear Game History");
+            System.out.println("5. Quit");
+            System.out.println("Choose an option: ");
+
+            Scanner user_input = new Scanner(System.in);
+            int option = user_input.nextInt();
+
+            switch (option) {
+                case 1: // Single player
+                	System.out.println("Enter Player 1 ID: ");
+                	String ghost = user_input.nextLine();
+                    playerID1 = user_input.nextLine();  
+                    
+                    System.out.println("Enter Player 2 ID: ");
+                    playerID2 = user_input.nextLine();
+                    
+                    System.out.println("Choose number of attempts you need:");
+                    System.out.println("1. Easy = (20 Attempts)");
+                    System.out.println("2. Medium = (15 Attempts)");
+                    System.out.println("3. Hard = (10 Attempts)");
+                    System.out.println("Choose an option: ");
+                    int attempts;
+                    int option2 = user_input.nextInt();
+
+                    switch (option2) {
+                        case 1:
+                            attempts = 20;
+                            break;
+                        case 2:
+                            attempts = 15;
+                            break;
+                        case 3:
+                            attempts = 10;
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Defaulting to easy");
+                            attempts = 20;
+                    }
+
+                    // random Number -- 1000 to 9999;
+                    int randomNumber = (int) (Math.random() * 9999);
+                    if (randomNumber < 999) {
+                        randomNumber = randomNumber + 1000;
+                    }
+
+                    // alternating turns between Player 1 and Player 2
+                    int currentPlayer = 1; // start with player 1
+                    while (attempts > 0) {
+                        int catches = 0;
+                        int matches = 0;
+                        String currentPlayerID = (currentPlayer == 1) ? playerID1 : playerID2;
+                        System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + attempts + "): ");
+                        int guess = user_input.nextInt();
+
+                        if (guess < 1000 || guess > 9999) {
+                            System.out.println("Invalid Input. Enter only a 4 digit number.");
+                            continue;
+                        
+                        }
+
+                        String guessString = String.valueOf(guess);
+                        String randomString = String.valueOf(randomNumber);
+
+                        for (int i = 0; i < 4; i++) {
+                            if (guessString.charAt(i) == randomString.charAt(i)) {
+                                matches++;
+                            } else if (randomString.contains(Character.toString(guessString.charAt(i)))) {
+                                catches++;
+                            }
+                        }
+
+                        if (matches == 4) {
+                            System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
+                            return;
+                        } else {
+                            System.out.printf("Matches: %d and Catches: %d.\n", matches, catches);
+                        }
+
+                        attempts--;
+                        currentPlayer = (currentPlayer == 1) ? 2 : 1; // switch players
+                    }
+                    System.out.println("Both players have lost. The random number was " + randomNumber);
+                    break;
+                case 2: // change player ID
+                    System.out.println("Enter a new user ID for Player 1: ");
+                    playerID1 = user_input.nextLine();
+                    System.out.println("Enter a new user ID for Player 2: ");
+                    playerID2 = user_input.nextLine();
+                    System.out.println("Updated Player IDs successfully...");
+                    break;
+                case 3: // Display player ID
+                    System.out.println("The player IDs are " + playerID1 + " and " + playerID2 + ".");
+                    break;
+                case 4:
+                    System.out.println("Quitting..");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option! Choose a valid option.");
+            }
+        }
+    }
+}
