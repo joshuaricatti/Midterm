@@ -18,31 +18,31 @@ public class Files2 {
             System.out.println("Choose an option: ");
 
             Scanner user_input = new Scanner(System.in);
-            int option = user_input.nextInt();
+            String option = user_input.nextLine();
 
             switch (option) {
-                case 1: {// Singleplayer
+                case "1": {// Singleplayer
                 	System.out.println("Enter your Player ID: ");
-                	String ghost = user_input.nextLine();
+                	
                 	playerID1 = user_input.nextLine(); 
                 	
-					System.out.println("Welcome "+ playerID1 + "!!!");
+					System.out.println("Choose number of attempts you need:");
 					System.out.println("1. Easy = (20 Attempts)");
 					System.out.println("2. Medium = (15 Attempts)");
 					System.out.println("3. Hard = (10 Attempts)");
-					System.out.println("Choose Difficulty: ");
+					System.out.println("Choose an option: ");
 					int attempts ;
-					int option2 = user_input.nextInt();
+					String option2 = user_input.nextLine();
 
 					
 					switch(option2) {
-					case 1:
+					case "1":
 						attempts = 20;
 						break;
-					case 2:
+					case "2":
 						attempts = 15;
 						break;
-					case 3:
+					case "3":
 						attempts = 10;
 						break;
 					default:
@@ -66,9 +66,9 @@ public class Files2 {
 						int matches = 0;
 						
 						try {
-						System.out.println("Enter a 4 digit number (attempts remaining "+attempts+"): ");
+						System.out.println(playerID1 + ", enter a 4 digit number (attempts remaining "+attempts+"): ");
 						
-						int guess = user_input.nextInt();
+						int guess =  Integer.parseInt(user_input.nextLine());
 
 						if (guess<1000 || guess > 9999 ) {
 							System.out.println("Invalid Input. enter only a 4 digit number");
@@ -105,14 +105,14 @@ catches=0;
 						catch (Exception e) {
                         	System.out.println("Invalid Input. Please enter a number.");
                         	System.out.println("Invalid Input. Enter exactly 4 digits.");
-                        	String Ghost =  user_input.nextLine();
+                        	
 						}
 					}
 					System.out.println("You have lost. The random number is "+ randomNumber);
 					break;}
-                case 2: { // Multiplayer 
+                case "2": { // Multiplayer 
                 	System.out.println("Enter Player 1 ID: ");
-                	String ghost = user_input.nextLine();
+                	
                     playerID1 = user_input.nextLine();  
                     
                     System.out.println("Enter Player 2 ID: ");
@@ -124,16 +124,16 @@ catches=0;
                     System.out.println("3. Hard = (10 Attempts)");
                     System.out.println("Choose an option: ");
                     int attempts;
-                    int option2 = user_input.nextInt();
+                    String option2 = user_input.nextLine();
 
                     switch (option2) {
-                        case 1:
+                        case "1":
                             attempts = 20;
                             break;
-                        case 2:
+                        case "2":
                             attempts = 15;
                             break;
-                        case 3:
+                        case "3":
                             attempts = 10;
                             break;
                         default:
@@ -195,18 +195,18 @@ catches=0;
                         catch (Exception e) {
                         	System.out.println("Invalid Input. Please enter a number.");
                         	System.out.println("Invalid Input. Enter exactly 4 digits.");
-                        	String Ghost =  user_input.nextLine();
+                        	
                         	
                         }
                         
                     }
                     System.out.println("Both players have lost. The random number was " + randomNumber);
                     break; }
-                case 3: // Display Game History
+                case "3": // Display Game History
                   
-                case 4: // Clear Game History
+                case "4": // Clear Game History
                     
-                case 5:
+                case "5":
                 	System.out.println("Quitting..");
                     System.exit(0);
                     break;
