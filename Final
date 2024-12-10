@@ -22,6 +22,10 @@ public class Files2 {
 
             switch (option) {
                 case 1: {// Singleplayer
+                	System.out.println("Enter your Player ID: ");
+                	String ghost = user_input.nextLine();
+                	playerID1 = user_input.nextLine(); 
+                	
 					System.out.println("Welcome "+ playerID1 + "!!!");
 					System.out.println("1. Easy = (20 Attempts)");
 					System.out.println("2. Medium = (15 Attempts)");
@@ -198,11 +202,12 @@ catches=0;
                     }
                     System.out.println("Both players have lost. The random number was " + randomNumber);
                     break; }
-                case 3: // Display player ID
-                    System.out.println("The player IDs are " + playerID1 + " and " + playerID2 + ".");
-                    break;
-                case 4:
-                    System.out.println("Quitting..");
+                case 3: // Display Game History
+                  
+                case 4: // Clear Game History
+                    
+                case 5:
+                	System.out.println("Quitting..");
                     System.exit(0);
                     break;
                 default:
