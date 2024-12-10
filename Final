@@ -150,15 +150,19 @@ catches=0;
                     int Player2_attempts = attempts;
                     // alternating turns between Player 1 and Player 2
                     int currentPlayer = 1; // start with player 1
-                    while (attempts > 0) {
+                    while (Player1_attempts > 0 || Player2_attempts > 0) {
                     	int catches = 0;
                     	int matches = 0;
                     	String currentPlayerID = (currentPlayer == 1) ? playerID1 : playerID2;
                         
-                        try {
-                        	System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + attempts + "): ");
+                        try { if (currentPlayerID == playerID1) {
+	                        System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + Player1_attempts + "): ");
+                        } else {
+	                        	System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + Player2_attempts + "): ");
+	                        }
                         	
-                        	int guess = user_input.nextInt();
+                        	
+                        	int guess =  Integer.parseInt(user_input.nextLine());
                         	
                           
 	                        if (guess < 1000 || guess > 9999) {
@@ -182,12 +186,20 @@ catches=0;
 	
 		                        if (matches == 4) {
 		                            System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
+		                            if (currentPlayerID == playerID1) {
+				                        Player1_attempts--;
+		                            } else {
+				                        	Player2_attempts--;
+				                        }
 		                            return;
 		                        } else {
 		                            System.out.printf("Matches: %d and Catches: %d.\n", matches, catches);
 		                        }
-	
-		                        attempts--;
+		                        if (currentPlayerID == playerID1) {
+		                        Player1_attempts--;
+		                        } else {
+		                        	Player2_attempts--;
+		                        }
 		                        currentPlayer = (currentPlayer == 1) ? 2 : 1; // switch players
 	                        }
                       
