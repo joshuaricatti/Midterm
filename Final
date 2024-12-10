@@ -21,7 +21,92 @@ public class Files2 {
             int option = user_input.nextInt();
 
             switch (option) {
-                case 1: // Single player
+                case 1: {// Singleplayer
+					System.out.println("Welcome "+ playerID1 + "!!!");
+					System.out.println("1. Easy = (20 Attempts)");
+					System.out.println("2. Medium = (15 Attempts)");
+					System.out.println("3. Hard = (10 Attempts)");
+					System.out.println("Choose Difficulty: ");
+					int attempts ;
+					int option2 = user_input.nextInt();
+
+					
+					switch(option2) {
+					case 1:
+						attempts = 20;
+						break;
+					case 2:
+						attempts = 15;
+						break;
+					case 3:
+						attempts = 10;
+						break;
+					default:
+						System.out.println("Invalid choice. Defaulting to easy");
+
+						attempts = 20;
+					}
+					
+					int randomNumber ;
+
+					// random Number -- 1000 to 9999;
+					// Math.random()* 9999 -- 0 to 1 -- 0 to 9999
+					// ( 0 to 999 ) + 1000
+
+					randomNumber = (int)(Math.random() * 9999);
+					if (randomNumber < 999) {
+						randomNumber = randomNumber + 1000;
+					}
+					while(attempts>0){
+						int catches = 0;
+						int matches = 0;
+						
+						try {
+						System.out.println("Enter a 4 digit number (attempts remaining "+attempts+"): ");
+						
+						int guess = user_input.nextInt();
+
+						if (guess<1000 || guess > 9999 ) {
+							System.out.println("Invalid Input. enter only a 4 digit number");
+							continue;
+						}
+						// randomNumber = 1234 guess = 1298 // matches=2
+catches=0;
+						String guessString = String.valueOf(guess);
+						String randomString = String.valueOf(randomNumber);
+
+						// randomNumber = 1234 guess = 1298 // matches=2
+catches=0;
+						// guess [0] = 1 == randomNumber[0 to 3] at i = 0
+						// rn = 8606 guess = 2688
+						for (int i = 0; i < 4; i++) {
+					if (guessString.charAt(i) == randomString.charAt(i)) {
+						matches++;
+					} else if
+(randomString.contains(Character.toString(guessString.charAt(i)))) {
+							catches++;
+						}
+					}
+						if (matches == 4) {
+							System.out.println("Congractulations!!.You have guessed the number.");
+							return;
+						}
+						else {
+							System.out.printf("Matches: %d and Catches: %d. \n",matches,catches);
+						
+						}
+						
+						attempts = attempts - 1 ;
+						}
+						catch (Exception e) {
+                        	System.out.println("Invalid Input. Please enter a number.");
+                        	System.out.println("Invalid Input. Enter exactly 4 digits.");
+                        	String Ghost =  user_input.nextLine();
+						}
+					}
+					System.out.println("You have lost. The random number is "+ randomNumber);
+					break;}
+                case 2: { // Multiplayer 
                 	System.out.println("Enter Player 1 ID: ");
                 	String ghost = user_input.nextLine();
                     playerID1 = user_input.nextLine();  
@@ -106,19 +191,13 @@ public class Files2 {
                         catch (Exception e) {
                         	System.out.println("Invalid Input. Please enter a number.");
                         	System.out.println("Invalid Input. Enter exactly 4 digits.");
-                        	String Ghost =  user_input.nextLine();                    	
+                        	String Ghost =  user_input.nextLine();
+                        	
                         }
                         
                     }
                     System.out.println("Both players have lost. The random number was " + randomNumber);
-                    break;
-                case 2: // change player ID
-                    System.out.println("Enter a new user ID for Player 1: ");
-                    playerID1 = user_input.nextLine();
-                    System.out.println("Enter a new user ID for Player 2: ");
-                    playerID2 = user_input.nextLine();
-                    System.out.println("Updated Player IDs successfully...");
-                    break;
+                    break; }
                 case 3: // Display player ID
                     System.out.println("The player IDs are " + playerID1 + " and " + playerID2 + ".");
                     break;
@@ -132,4 +211,3 @@ public class Files2 {
         }
     }
 }
-
