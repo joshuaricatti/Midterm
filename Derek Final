@@ -103,7 +103,7 @@ public class Final {
 			 	        		
 			 	        if (!guessedCorrectly) {
 			 	            System.out.println("Game OVER. The number was: " + numberToGuess);
-			 	           saveGameHistory(SoloPlayer, null, SoloPlayer.ID, attempts);
+			 	           saveGameHistory(SoloPlayer, null, "None" , attempts);
 			 	        }
 			 	    
 			                break;
@@ -122,16 +122,15 @@ public class Final {
 		                   
 		                
 		                    boolean GuessCorrectly = false;
-					 	       int NumberToGuess1 = 1234;
-					 	      int NumberToGuess2 = 1234;
+					 	       int NumberToGuess1 = generateRandomNumber();
+					 	      int NumberToGuess2 = generateRandomNumber();
 					 	       int attempts2 = getAttemptsBasedOnDifficulty();
 		                    
 					 	      Player Player1 = new Player(playerID1, attempts2, GuessCorrectly, NumberToGuess1);
 					 	     Player Player2 = new Player(playerID2, attempts2, GuessCorrectly, NumberToGuess2);
 					 	       
 		                    
-					 	     boolean gameEnded = false;
-					 	    String Draw = null;
+					 	     boolean gameEnded = false;			
 		                    // alternating turns between Player 1 and Player 2
 		                    int currentPlayer = 1; // start with player 1
 		                    while (!gameEnded) {
@@ -190,12 +189,11 @@ public class Final {
 				                        		Player1.PlayerHasGuessed=true;
 				                       System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
 				                        	}else {
-				                        		Player2.attempts--;
 				                        		System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
 				                        		if(Player1.PlayerHasGuessed==true) {
 				                        System.out.println("Its a draw \nBoth players have guessed it correctly with the same number of guesses");
 				                        		gameEnded = true;
-				                        		 saveGameHistory(Player1, Player2, Draw, attempts2);
+				                        		 saveGameHistory(Player1, Player2, "No One", attempts2);
 				                        		break;
 				                        		}else {
 				                       
@@ -242,7 +240,7 @@ public class Final {
 		                        	System.out.println("Its a draw \nBoth players have ran out of guesses. \nThe correct numbers are: "+ Player1.ID +"(" + Player1.randomNumber +") "+ Player2.ID +"(" +Player2.randomNumber+ ")");
 		                        	gameEnded=true;
 		                        	
-		                        	saveGameHistory(Player1, Player2, Draw, attempts2);
+		                        	saveGameHistory(Player1, Player2, "No One", attempts2);
 		                        	
 		                        }
 		                        
