@@ -30,9 +30,6 @@ class Player{
 
 
 
-  
-
-
 public class Final {
 	    private static final Scanner scanner = new Scanner(System.in);
 	    
@@ -145,7 +142,7 @@ public class Final {
 		                        	}else {
 		                        	System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + Player2.attempts + "): ");
 		                        	}
-		                        	int guess = scanner.nextInt();
+		                        	int guess = getValidIntInput();
 		                        	
 		                          
 			                        if (guess < 1000 || guess > 9999) {
@@ -156,7 +153,7 @@ public class Final {
 			                        } 
 			                        else {
 			
-				                        String guessString = String.valueOf(guess);
+				                
 				                        int Randn ;
 				                        if(currentPlayerID==Player1.ID) {
 			                        		Randn = Player1.randomNumber;
@@ -222,8 +219,10 @@ public class Final {
 			                        
 		                        
 		                        catch (Exception e) {
+		                    
 		                        	System.out.println("Invalid Input. Please enter a number.");
 		                        	System.out.println("Invalid Input. Enter exactly 4 digits.");
+		                        	
 		                        		
 		                        }
 		                        if(Player2.attempts==0) {
@@ -324,8 +323,9 @@ public class Final {
 			                	}
 			                    return Integer.parseInt(in_put);
 			                } catch (Exception e) {
-			                	System.out.println(e);
-			                    System.out.print("Invalid input. Enter exactly 4 digits.");
+			           
+			                    System.out.print("Invalid input. Enter exactly 4 digits. \nTry again");
+			                    
 			                }
 			            }
 }
@@ -349,30 +349,30 @@ static void saveGameHistory(Player player1, Player player2, String winner, int
 		}
 
 static void displayGameHistory() {
-System.out.println("Game History:");
-try {
-// Use try-with-resources to ensure the BufferedReader is closed after reading
-try (BufferedReader reader = new BufferedReader(new
-FileReader("game_history.txt"))) {
-String line;
-while ((line = reader.readLine()) != null) {
-System.out.println(line);
+	System.out.println("Game History:");
+	try {
+		// Use try-with-resources to ensure the BufferedReader is closed after reading
+		try (BufferedReader reader = new BufferedReader(new
+					FileReader("game_history.txt"))) {
+				String line;
+		while ((line = reader.readLine()) != null) {
+						System.out.println(line);
 }
 }
-} catch (FileNotFoundException e) {
-System.out.println("No game history found.");
-} catch (IOException e) {
+		} catch (FileNotFoundException e) {
+			System.out.println("No game history found.");
+		} catch (IOException e) {
 System.out.println("Unable to read the file: " + e.getMessage());
 }
 }
-static void clearGameHistory() {
-try {
+	static void clearGameHistory() {
+		try {
 // Use try-with-resources to ensure the PrintWriter is closed after clearing
-try (PrintWriter writer = new PrintWriter("game_history.txt")) {
-System.out.println("Game history cleared.");
+			try (PrintWriter writer = new PrintWriter("game_history.txt")) {
+				System.out.println("Game history cleared.");
 }
-} catch (IOException e) {
-System.out.println("Failed to clear game history: " + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Failed to clear game history: " + e.getMessage());
 }
 }
 
