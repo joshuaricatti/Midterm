@@ -1,0 +1,390 @@
+package Final;
+
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+class Player{
+    String ID;
+    int attempts;
+    boolean PlayerHasGuessed;
+    int randomNumber;
+    String randomString; 
+    int Difficulty;
+        public Player(String ID, int attempts, boolean PlayerHasGuessed, int randomNumber){
+            
+            this.ID=ID;
+            this.attempts=attempts;
+            this.PlayerHasGuessed=PlayerHasGuessed;
+            this.randomNumber=randomNumber;
+            randomString = String.valueOf(randomNumber); 
+            Difficulty = attempts;
+            
+        }
+      
+}
+
+
+
+  
+
+
+public class Final {
+	    private static final Scanner scanner = new Scanner(System.in);
+	    
+
+		public static void main(String Args[]) {
+		while (true){
+		           
+			    // Display the main menu with infinite loop
+			        System.out.println("Menu:");
+			        System.out.println("1. Single Player");
+			        System.out.println("2. Dual Player");
+			        System.out.println("3. Display Game History");
+			        System.out.println("4. Clear Game History");
+			        System.out.println("5. Quit");
+			        System.out.print("Choose an option: ");
+			        
+			        int choice = getValidIntInput();
+
+			        switch (choice) {
+			            case 1:
+			            	 System.out.println("Enter your Player ID:");
+			 	        	String PlayerID = scanner.nextLine();
+			 	        
+			 	        		
+			 	        System.out.println("Choose number of attempts you need:");
+			 	        System.out.println("1. Easy (20 attempts)");
+			 	        System.out.println("2. Medium (15 attempts)");
+			 	        System.out.println("3. Hard (10 attempts)");
+			 	        System.out.print("Choose an option: ");
+
+			 	       
+			 	        
+			 	       boolean guessedCorrectly = false;
+			 	       int numberToGuess = generateRandomNumber();
+			 	       
+			 	       int attempts = getAttemptsBasedOnDifficulty();
+			 	       Player SoloPlayer = new Player(PlayerID, attempts, guessedCorrectly, numberToGuess);
+			 	       
+			 	       
+			 	       
+
+			 	        for (int i = SoloPlayer.attempts; i > 0; i = i-1) {
+			 	            System.out.print("Guess the unknown randomly generated 4-digit number. \nEnter the random 4-digit number (Attempts remaining: " + (i) + "):");
+			 	            int userGuess = scanner.nextInt();
+			 	            
+			 	            if (userGuess < 1000 || userGuess > 9999) {
+	                            System.out.println("Invalid Input. Enter only a 4 digit number.");
+	                            continue;
+	                          }                            
+	                        String userString = String.valueOf(userGuess);
+	                        
+			 	            int[] feedback = getFeedback(userString, numberToGuess);
+			 	            int matches = feedback[0];
+			 	            int catches = feedback[1];
+			 	            
+			 	            //if guessed correctly, end game. If not, give feedback and continue.
+			 	            if (matches == 4) {
+			 	                System.out.println("Congratulations! You've guessed the correct number.");
+			 	                guessedCorrectly = true;
+			 	                SoloPlayer.attempts = i-1;
+			 	               saveGameHistory(SoloPlayer, null, SoloPlayer.ID, attempts);
+			 	                break;
+			 	            } else {
+			 	                System.out.println("Matches: " + matches + ", Catches: " + catches);
+			 	            }
+			 	           SoloPlayer.attempts = i-1;
+			 	        }
+			 	        		
+			 	        if (!guessedCorrectly) {
+			 	            System.out.println("Game OVER. The number was: " + numberToGuess);
+			 	           saveGameHistory(SoloPlayer, null, SoloPlayer.ID, attempts);
+			 	        }
+			 	    
+			                break;
+			            case 2:
+			            	System.out.println("Enter Player 1 ID: ");
+		                    String playerID1 = scanner.nextLine();  
+		                    
+		                    System.out.println("Enter Player 2 ID: ");
+		                    String playerID2 = scanner.nextLine();
+		                    
+		                    System.out.println("Choose number of attempts you need:");
+		                    System.out.println("1. Easy = (20 Attempts)");
+		                    System.out.println("2. Medium = (15 Attempts)");
+		                    System.out.println("3. Hard = (10 Attempts)");
+		                    System.out.println("Choose an option: ");
+		                   
+		                
+		                    boolean GuessCorrectly = false;
+					 	       int NumberToGuess1 = 1234;
+					 	      int NumberToGuess2 = 1234;
+					 	       int attempts2 = getAttemptsBasedOnDifficulty();
+		                    
+					 	      Player Player1 = new Player(playerID1, attempts2, GuessCorrectly, NumberToGuess1);
+					 	     Player Player2 = new Player(playerID2, attempts2, GuessCorrectly, NumberToGuess2);
+					 	       
+		                    
+					 	     boolean gameEnded = false;
+					 	    String Draw = null;
+		                    // alternating turns between Player 1 and Player 2
+		                    int currentPlayer = 1; // start with player 1
+		                    while (!gameEnded) {
+		                    	int catches = 0;
+		                    	int matches = 0;
+		                    	String currentPlayerID = (currentPlayer == 1) ? Player1.ID : Player2.ID;
+		                      
+		            
+		                        try {
+		                        	if(currentPlayerID==Player1.ID) {
+		                        		System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + Player1.attempts + "): ");
+		                        	}else {
+		                        	System.out.println(currentPlayerID + ", enter the random 4-digit number (attempts remaining " + Player2.attempts + "): ");
+		                        	}
+		                        	int guess = scanner.nextInt();
+		                        	
+		                          
+			                        if (guess < 1000 || guess > 9999) {
+			                            System.out.println("Invalid Input. Enter only a 4 digit number.");
+			                            continue;
+			                                                     
+			                        
+			                        } 
+			                        else {
+			
+				                        String guessString = String.valueOf(guess);
+				                        
+				                        
+				                        
+				                
+				                        
+				                     
+			
+				                        for (int i = 0; i < 4; i++) {
+				                            
+				                        	if(currentPlayerID==Player1.ID) {
+				                        	if (guessString.charAt(i) == Player1.randomString.charAt(i)) {
+				                                matches++;
+				                            } else if (Player1.randomString.contains(Character.toString(guessString.charAt(i)))) {
+				                                catches++;
+				                            }
+				                        }
+				                        else {
+				                        	if (guessString.charAt(i) == Player2.randomString.charAt(i)) {
+				                                matches++;
+				                            } else if (Player2.randomString.contains(Character.toString(guessString.charAt(i)))) {
+				                                catches++;
+				                            }
+				                        }
+				                        	
+				                        }
+				                        if (matches == 4) {
+				                            
+				                            if(currentPlayerID==playerID1) {
+				                         
+				                        		Player1.PlayerHasGuessed=true;
+				                       System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
+				                        	}else {
+				                        		Player2.attempts--;
+				                        		System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
+				                        		if(Player1.PlayerHasGuessed==true) {
+				                        System.out.println("Its a draw \nBoth players have guessed it correctly with the same number of guesses");
+				                        		gameEnded = true;
+				                        		 saveGameHistory(Player1, Player2, Draw, attempts2);
+				                        		break;
+				                        		}else {
+				                       
+				                        		Player2.PlayerHasGuessed=true;
+				                        		gameEnded = true;
+				                        		Player2.attempts--;
+				                       System.out.println(Player2.ID+ " has won");	
+				                       saveGameHistory(Player1, Player2, Player2.ID, attempts2);
+				                       break;
+				                        		}
+				                         
+				                            }
+				                           
+				                        } else {
+				                            System.out.printf("Matches: %d and Catches: %d.\n", matches, catches);
+				                        }
+				                        	if(currentPlayerID==playerID1) {
+				                        		Player1.attempts--;
+				                        		
+				                        	}else {
+				                        		Player2.attempts--;
+				                        		if(Player1.PlayerHasGuessed==true) {
+				                        			gameEnded = true;
+				                        		System.out.println(Player1.ID+ " has won");	
+				                        		saveGameHistory(Player1, Player2, Player1.ID, attempts2);
+				                        		break;
+				                        		}
+				                        	}
+				                        	
+				                        
+				                        }
+				                        currentPlayer = (currentPlayer == 1) ? 2 : 1; // switch players
+			                        }
+		                      
+			                      
+			                        
+		                        
+		                        catch (Exception e) {
+		                        	System.out.println("Invalid Input. Please enter a number.");
+		                        	System.out.println("Invalid Input. Enter exactly 4 digits.");
+		                        		
+		                        }
+		                        if(Player2.attempts==0) {
+		                        	System.out.println("Its a draw \nBoth players have ran out of guesses. \nThe correct numbers are: "+ Player1.ID +"(" + Player1.randomNumber +") "+ Player2.ID +"(" +Player2.randomNumber+ ")");
+		                        	gameEnded=true;
+		                        	
+		                        	saveGameHistory(Player1, Player2, Draw, attempts2);
+		                        	
+		                        }
+		                        
+		                    }
+		                   
+		               
+			                break;
+			            case 3:
+			            	 displayGameHistory();
+			                break;
+			              
+			            case 4:
+			            	clearGameHistory();
+			            	break;
+			            case 5:
+			    
+			                System.out.println("Quitting...");
+			                System.exit(0);
+			            default:
+			                System.out.println("Invalid choice. Try again.");
+			        }
+		}
+}
+		
+
+	    // Generate a random 4-digit integer
+	    private static int generateRandomNumber() {
+	    	int Randn = (int)(Math.random()*8999 + 1000);
+	        return  Randn; // Generates a number between 1000 and 9999
+	    }
+
+	  
+
+		// Get feedback on matches and catches
+	    private static int[] getFeedback(String userGuess, int numberToGuess) {
+	        String numberStr = String.valueOf(numberToGuess);
+	        int matches = 0;
+	        int catches = 0;
+	        boolean[] countedUser = new boolean[4];
+	        boolean[] countedActual = new boolean[4];
+
+	        // Check for matches
+	        for (int i = 0; i < 4; i++) {
+	            if (userGuess.charAt(i) == numberStr.charAt(i)) {
+	                matches++;
+	                countedUser[i] = true;
+	                countedActual[i] = true;
+	            }
+	        }
+
+	        // Check for catches
+	        for (int i = 0; i < 4; i++) {
+	            if (!countedUser[i]) {
+	                for (int j = 0; j < 4; j++) {
+	                    if (!countedActual[j] && userGuess.charAt(i) == numberStr.charAt(j)) {
+	                        catches++;
+	                        countedActual[j] = true; // Mark this digit as counted
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+
+	        return new int[]{matches, catches};
+	    }
+
+	  
+
+	    // Get the number of attempts based on the selected difficulty level
+	    private static int getAttemptsBasedOnDifficulty() {
+	        int difficulty = getValidIntInput();
+	        switch (difficulty) {
+	            case 1:
+	                return 20; // Easy
+	            case 2:
+	                return 15; // Medium
+	            case 3:
+	                return 3; // Hard
+	            default:
+	            	System.out.println("Invalid choice. Defaulting to Easy (20 Attempts)");
+	                return 20; // Invalid
+	        }
+	    }
+			        private static int getValidIntInput() {
+			            while (true) {
+			                try {
+			                	String in_put = scanner.nextLine();
+			                	if(in_put == "") {
+			                		continue;
+			                	}
+			                    return Integer.parseInt(in_put);
+			                } catch (Exception e) {
+			                	System.out.println(e);
+			                    System.out.print("Invalid input. Enter exactly 4 digits.");
+			                }
+			            }
+}
+			       
+			  
+static void saveGameHistory(Player player1, Player player2, String winner, int
+		attempts) {
+		try {
+			try (FileWriter writer = new FileWriter("game_history.txt", true)) {
+				writer.write(LocalDateTime.now() + " - ");
+				writer.write("Difficulty: " + attempts + " | ");
+				writer.write("Player1 (" + player1.ID + "): " + player1.attempts + " attempts left | ");
+				if (player2 != null) {
+					writer.write("Player2 (" + player2.ID + "): " + player2.attempts + " attempts left | ");
+				}
+				writer.write("Winner: " + winner + "\n");
+			}
+			} catch (IOException e) {
+		System.out.println("Failed to save game history: " + e.getMessage());
+		}
+		}
+
+static void displayGameHistory() {
+System.out.println("Game History:");
+try {
+// Use try-with-resources to ensure the BufferedReader is closed after reading
+try (BufferedReader reader = new BufferedReader(new
+FileReader("game_history.txt"))) {
+String line;
+while ((line = reader.readLine()) != null) {
+System.out.println(line);
+}
+}
+} catch (FileNotFoundException e) {
+System.out.println("No game history found.");
+} catch (IOException e) {
+System.out.println("Unable to read the file: " + e.getMessage());
+}
+}
+static void clearGameHistory() {
+try {
+// Use try-with-resources to ensure the PrintWriter is closed after clearing
+try (PrintWriter writer = new PrintWriter("game_history.txt")) {
+System.out.println("Game history cleared.");
+}
+} catch (IOException e) {
+System.out.println("Failed to clear game history: " + e.getMessage());
+}
+}
+
+}
