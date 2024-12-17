@@ -82,9 +82,9 @@ public class Final {
 	                            System.out.println("Invalid Input. Enter only a 4 digit number.");
 	                            continue;
 	                          }                            
-	                        String userString = String.valueOf(userGuess);
+	                        //String userString = String.valueOf(userGuess);
 	                        
-			 	            int[] feedback = getFeedback(userString, numberToGuess);
+			 	            int[] feedback = calculateMatchesAndCatches(userGuess, numberToGuess);
 			 	            int matches = feedback[0];
 			 	            int catches = feedback[1];
 			 	            
@@ -122,8 +122,8 @@ public class Final {
 		                   
 		                
 		                    boolean GuessCorrectly = false;
-					 	       int NumberToGuess1 = generateRandomNumber();
-					 	      int NumberToGuess2 = generateRandomNumber();
+					 	       int NumberToGuess1 = 1234;
+					 	      int NumberToGuess2 = 1234;
 					 	       int attempts2 = getAttemptsBasedOnDifficulty();
 		                    
 					 	      Player Player1 = new Player(playerID1, attempts2, GuessCorrectly, NumberToGuess1);
@@ -157,31 +157,20 @@ public class Final {
 			                        else {
 			
 				                        String guessString = String.valueOf(guess);
-				                        
-				                        
+				                        int Randn ;
+				                        if(currentPlayerID==Player1.ID) {
+			                        		Randn = Player1.randomNumber;
+			                        	}else {
+			                        		Randn = Player2.randomNumber;
+			                        	}
 				                        
 				                
 				                        
-				                     
-			
-				                        for (int i = 0; i < 4; i++) {
-				                            
-				                        	if(currentPlayerID==Player1.ID) {
-				                        	if (guessString.charAt(i) == Player1.randomString.charAt(i)) {
-				                                matches++;
-				                            } else if (Player1.randomString.contains(Character.toString(guessString.charAt(i)))) {
-				                                catches++;
-				                            }
-				                        }
-				                        else {
-				                        	if (guessString.charAt(i) == Player2.randomString.charAt(i)) {
-				                                matches++;
-				                            } else if (Player2.randomString.contains(Character.toString(guessString.charAt(i)))) {
-				                                catches++;
-				                            }
-				                        }
-				                        	
-				                        }
+
+						 	            int[] feedback = calculateMatchesAndCatches(Randn, guess);
+						 	            matches = feedback[0];
+						 	            catches = feedback[1];
+						 	            
 				                        if (matches == 4) {
 				                            
 				                            if(currentPlayerID==playerID1) {
@@ -191,6 +180,7 @@ public class Final {
 				                        	}else {
 				                        		System.out.println("Congratulations " + currentPlayerID + "!!! You have guessed the number.");
 				                        		if(Player1.PlayerHasGuessed==true) {
+				                        		Player2.attempts--;
 				                        System.out.println("Its a draw \nBoth players have guessed it correctly with the same number of guesses");
 				                        		gameEnded = true;
 				                        		 saveGameHistory(Player1, Player2, "No One", attempts2);
@@ -275,29 +265,30 @@ public class Final {
 	  
 
 		// Get feedback on matches and catches
-	    private static int[] getFeedback(String userGuess, int numberToGuess) {
-	        String numberStr = String.valueOf(numberToGuess);
-	        int matches = 0;
-	        int catches = 0;
-	        boolean[] countedUser = new boolean[4];
-	        boolean[] countedActual = new boolean[4];
+	    static int[] calculateMatchesAndCatches(int targetNumber, int guess) {
+	        String target = String.valueOf(targetNumber);
+	        String guessStr = String.valueOf(guess);
 
-	        // Check for matches
+	        int matches = 0, catches = 0;
+	        boolean[] targetMatched = new boolean[4];
+	        boolean[] guessMatched = new boolean[4];
+
+	        // First pass for matches
 	        for (int i = 0; i < 4; i++) {
-	            if (userGuess.charAt(i) == numberStr.charAt(i)) {
+	            if (target.charAt(i) == guessStr.charAt(i)) {
 	                matches++;
-	                countedUser[i] = true;
-	                countedActual[i] = true;
+	                targetMatched[i] = true;
+	                guessMatched[i] = true;
 	            }
 	        }
 
-	        // Check for catches
+	        // Second pass for catches
 	        for (int i = 0; i < 4; i++) {
-	            if (!countedUser[i]) {
+	            if (!guessMatched[i]) {
 	                for (int j = 0; j < 4; j++) {
-	                    if (!countedActual[j] && userGuess.charAt(i) == numberStr.charAt(j)) {
+	                    if (!targetMatched[j] && guessStr.charAt(i) == target.charAt(j)) {
 	                        catches++;
-	                        countedActual[j] = true; // Mark this digit as counted
+	                        targetMatched[j] = true;
 	                        break;
 	                    }
 	                }
